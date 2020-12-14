@@ -9,3 +9,5 @@ The project is based on this given prompt:
 	
 	
 This project relies heavily on two buit-in Java toolkits (Swing and AWT) for the GUI elements and basic Java logic for data handling.
+
+The runnable .jar file is in the Application folder. Please run it from there.
