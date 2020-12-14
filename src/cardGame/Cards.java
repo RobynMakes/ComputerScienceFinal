@@ -1,13 +1,11 @@
 package cardGame;
 
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
-
-import RobynsCustomUtilities.*;
 
 public class Cards {
 	
+	// This method generates a card value from Ace to King.
 	public static String pickVal() {
 		String[] cards = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 		
@@ -18,6 +16,7 @@ public class Cards {
 		return returnCard;
 	}
 	
+	// This method generates a card suit from Hearts to Spades.
 	public static String pickSuit() {
 		String[] suits = {"H", "D", "C", "S"};
 		
@@ -28,6 +27,7 @@ public class Cards {
 		return returnCard;
 	}
 
+	// Checks if all possible suits have been drawn and displays winPanel() if they have.
 	public static void checkForSuits(ArrayList<String> valuesDrawn, ArrayList<String> suitsDrawn, JFrame frame) {
 		boolean heart = false;
 		boolean diamond = false;

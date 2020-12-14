@@ -7,10 +7,7 @@ public class GameWindow {
 	static JFrame frame = new JFrame();
 	Panels panels = new Panels();
 
-	/*
-	 * TODO Overflow Method. DESCRIPTION This method will
-	 * create and show the game window. CALLS Panels.load()
-	 */
+	//This method will create and show the game window.
 	public void Init(String name, Dimension dim) {
 		Panels.load(panels.mainMenu(frame), frame);
 		frame.setPreferredSize(dim);

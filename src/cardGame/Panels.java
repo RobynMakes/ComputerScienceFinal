@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Panels {
-	/*
-	 * mainPanel() is the first JPanel that will
-	 * run when the program in run.
-	 */
+	// mainMenu() is the first JPanel that will run when the program in run.
 	public JPanel[] mainMenu(JFrame frame) {
+		/* Declaring a JPanel Array, two JPanels (to hold components), & a new GridBagConstraints()
+		 * GridBagContraints() allow for auto resizing grid based layout.
+		 */
 		JPanel[] panels = new JPanel[2];
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		JPanel titlePanel = new JPanel(new GridBagLayout());
@@ -28,6 +28,10 @@ public class Panels {
 
 		// Making and assigning elements to buttonPanel.
 		JButton playButton = new JButton("Run");
+		/* Adding an ActionListener()
+		 * An ActionListener() attached to a JButton will run whenever the JButton
+		 * is clicked.
+		 */
 		playButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -41,6 +45,9 @@ public class Panels {
 			}
 
 		});
+		/* Assigning the GridBagConstraints() constraints
+		 * This has to be done whenever one wants to add a component to the GridBagLayout().
+		 */
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -62,6 +69,7 @@ public class Panels {
 		buttonPanel.add(infoButton, c);
 
 		JButton quitButton = new JButton("Quit");
+		// This ActionListener will close the JFrame() when a button is clicked.
 		quitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -81,13 +89,24 @@ public class Panels {
 		return panels;
 	}
 
+	/*
+	 * This panel does most of the computing.
+	 * This took a while to code. *-*
+	 */
 	public JPanel[] playPanel(JFrame frame) {
-		int texty = 0;
+		/*
+		 * Take note of the two ArrayList()s. These lists will hold the cards that have been
+		 * randomly chosen.
+		 */
 		String cardVal = Cards.pickVal();
 		String cardSuit = Cards.pickSuit();
 		ArrayList<String> valuesDrawn = new ArrayList<String>();
 		ArrayList<String> suitsDrawn = new ArrayList<String>();
 
+		/* 
+		 * This checks the card that was randomly chosen and displays the corresponding image.
+		 * This took the longest to get to work.
+		 */
 		BufferedImage inputImage = null;
 
 		try {
@@ -95,14 +114,22 @@ public class Panels {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		valuesDrawn.add(cardVal);
-		suitsDrawn.add(cardSuit);
-
+		
 		Image outputImage = inputImage.getScaledInstance(100, 150, BufferedImage.SCALE_DEFAULT);
 
 		ImageIcon icon = new ImageIcon(outputImage);
-
+		
+		// Adds the first generated card value and suit to the appropriate ArrayList().
+		valuesDrawn.add(cardVal);
+		suitsDrawn.add(cardSuit);
+		
+		/*
+		 * First Panel Array!
+		 * Contains
+		 * 1. A textBoxPanel that will display the cards that have been drawn already.
+		 * 2. A playArea that will show an image of the card drawn along with a JButton that will
+		 * 		draw the next card.
+		 */
 		JPanel[] panels = new JPanel[2];
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -121,9 +148,16 @@ public class Panels {
 		c.gridx = 0;
 		c.gridy = 0;
 		playArea.add(card1, c);
-		texty++;
-
+		
 		JButton next = new JButton("Next Card");
+		/*
+		 * This ActionLister() will...
+		 * 1. Generate a new value and suit.
+		 * 2. Add the new value and suit to the appropriate ArrayList().
+		 * 3. Show the image that corresponds to the new value and suit.
+		 * 4. Update the text area.
+		 * 5. Run the "checkforsuits()" method. (This method is located in the Cards.java file).
+		 */
 		next.addActionListener(new ActionListener() {
 
 			@Override
@@ -155,13 +189,6 @@ public class Panels {
 		c.gridx = 0;
 		c.gridy = 1;
 		playArea.add(next, c);
-		texty++;
-
-		JLabel text = new JLabel("|This Text Is For Testing Purposes|");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = texty;
-		playArea.add(text, c);
 
 		panels[0] = playArea;
 		panels[1] = textBoxPanel;
@@ -175,9 +202,7 @@ public class Panels {
 		return null;
 	}
 
-	/*
-	 * Will load the given panel.
-	 */
+	// This method adds the given JPanel array to the given JFrame.
 	public static void load(JPanel[] panel, JFrame frame) {
 		frame.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -192,11 +217,13 @@ public class Panels {
 		}
 	}
 
+	// This method will remove any JPanel present on the targetFrame.
 	public static void remove(JFrame targetFrame) {
 		targetFrame.getContentPane().removeAll();
 		targetFrame.repaint();
 	}
 
+	// This winPanel will show how many cards were drawn and what those cards were. 
 	public static JPanel[] winPanel(ArrayList<String>suitsDrawn, ArrayList<String>valuesDrawn) {
 		JPanel[] panels = new JPanel[1];
 		GridBagConstraints c = new GridBagConstraints();
