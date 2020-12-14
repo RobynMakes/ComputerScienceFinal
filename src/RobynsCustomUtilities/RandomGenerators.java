@@ -35,7 +35,7 @@ public class RandomGenerators {
 	 * @param max The maximum range.
 	 * @param min The bottom range.
 	 * @return A pseudorandom double between min and max, rounded to the hundredth place.
-	 * Generates a pseudorandom number between a given minimum and a given maximum.
+	 * Generates a pseudorandom number between a given minimum and a given exclusive maximum.
 	 * @see CustomMaths#round(double, double)
 	 */
 	public static double randomNum(int max, int min) {

@@ -34,7 +34,7 @@ public class Panels {
 			public void actionPerformed(ActionEvent e) {
 				Panels.remove(frame);
 				try {
-					Panels.load(playPanel(), frame);
+					Panels.load(playPanel(frame), frame);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -81,7 +81,7 @@ public class Panels {
 		return panels;
 	}
 
-	public JPanel[] playPanel() {
+	public JPanel[] playPanel(JFrame frame) {
 		int texty = 0;
 		String cardVal = Cards.pickVal();
 		String cardSuit = Cards.pickSuit();
@@ -147,6 +147,7 @@ public class Panels {
 				textArea.setText(textArea.getText() + " " + newCardVal + newCardSuit);
 				icon.setImage(newImage);
 				playArea.repaint();
+				Cards.checkForSuits(valuesDrawn, suitsDrawn, frame);
 			}
 
 		});
@@ -194,5 +195,27 @@ public class Panels {
 	public static void remove(JFrame targetFrame) {
 		targetFrame.getContentPane().removeAll();
 		targetFrame.repaint();
+	}
+
+	public static JPanel[] winPanel(ArrayList<String>suitsDrawn, ArrayList<String>valuesDrawn) {
+		JPanel[] panels = new JPanel[1];
+		GridBagConstraints c = new GridBagConstraints();
+		
+		JPanel panel = new JPanel(new GridBagLayout());
+		JTextArea winText = new JTextArea();
+		winText.setSize(5, 20);
+		winText.setText("It has taken the computer " + suitsDrawn.size() + " to get one card of every suit."
+				+ "\nThe cards it has picked was... \n");
+		for (int i = 0; i <= suitsDrawn.size() - 1; i++) {
+			winText.setText(winText.getText() + valuesDrawn.get(i) + suitsDrawn.get(i) + " ");
+		}
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		panel.add(winText, c);
+		
+		panels[0] = panel;
+		
+		return panels;
 	}
 }

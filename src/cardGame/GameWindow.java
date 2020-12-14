@@ -8,7 +8,7 @@ public class GameWindow {
 	Panels panels = new Panels();
 
 	/*
-	 * TODO Code Init() method. TODO Overflow Method. DESCRIPTION This method will
+	 * TODO Overflow Method. DESCRIPTION This method will
 	 * create and show the game window. CALLS Panels.load()
 	 */
 	public void Init(String name, Dimension dim) {
